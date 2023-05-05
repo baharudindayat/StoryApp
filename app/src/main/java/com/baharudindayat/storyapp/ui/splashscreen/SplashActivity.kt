@@ -8,11 +8,17 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import com.baharudindayat.storyapp.R
-import com.baharudindayat.storyapp.ui.auth.AuthenticationActivity
+import com.baharudindayat.storyapp.data.local.preferences.User
+import com.baharudindayat.storyapp.data.local.preferences.UserPreferences
+import com.baharudindayat.storyapp.ui.auth.LoginActivity
+import com.baharudindayat.storyapp.ui.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
+
+    private lateinit var userModel: User
+    private lateinit var userPreferences: UserPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -21,10 +27,17 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        userPreferences = UserPreferences(this)
+        userModel = userPreferences.getUser()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, AuthenticationActivity::class.java)
-            startActivity(intent)
+            if (userModel.token == "") {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
             finish()
         }, DELAY.toLong())
 
