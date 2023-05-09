@@ -7,6 +7,8 @@ import com.baharudindayat.storyapp.data.Repository
 import com.baharudindayat.storyapp.di.Injection
 import com.baharudindayat.storyapp.ui.auth.viewmodel.LoginViewModel
 import com.baharudindayat.storyapp.ui.auth.viewmodel.RegisterViewModel
+import com.baharudindayat.storyapp.ui.main.viewmodel.MainViewModel
+import com.baharudindayat.storyapp.ui.story.viewmodel.StoryViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(private val Repository: Repository) :
@@ -19,6 +21,12 @@ class ViewModelFactory constructor(private val Repository: Repository) :
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(Repository) as T
+            }
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(Repository) as T
+            }
+            modelClass.isAssignableFrom(StoryViewModel::class.java) -> {
+                StoryViewModel(Repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

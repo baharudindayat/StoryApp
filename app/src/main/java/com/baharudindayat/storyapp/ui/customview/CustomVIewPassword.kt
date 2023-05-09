@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.baharudindayat.storyapp.R
 
 class CustomVIewPassword: AppCompatEditText {
 
@@ -31,8 +32,8 @@ class CustomVIewPassword: AppCompatEditText {
             }
 
             override fun afterTextChanged(s: Editable) {
-                if (s.length < 6) {
-                    error = "Min. 6 char"
+                if (s.length < 8) {
+                    error = context.getString(R.string.password_char)
                 }
             }
         })

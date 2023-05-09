@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.baharudindayat.storyapp.R
 
 class CustomViewEmail : AppCompatEditText {
     constructor(context: Context) : super(context) {
@@ -31,7 +32,7 @@ class CustomViewEmail : AppCompatEditText {
 
             override fun afterTextChanged(s: Editable) {
                 if (!isValidEmail(s)) {
-                    error = "Use email format"
+                    error = context.getString(R.string.email_format)
                 }
             }
         })

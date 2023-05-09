@@ -13,5 +13,12 @@
     <string name="username">Username</string>
     <string name="log_out">Log out</string>
     <string name="settings">Settings</string>
+    <string name="login_success">Successfully login</string>
+    <string name="login_failed">Failed to login</string>
+    <string name="image_story">image_story</string>
+    <string name="addstory">addStory</string>
+    <string name="email_format">Use Email Format</string>
+    <string name="password_char">Password must be at least 8 characters</string>
+    <string name="description">Description</string>
 
 </resources>

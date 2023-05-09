@@ -20,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var userPreferences: UserPreferences
     private var userModel: User = User()
+    private val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+    private val loginViewModel: LoginViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,36 +29,37 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-        val loginViewModel: LoginViewModel by viewModels {
-            factory
-        }
-
         userPreferences = UserPreferences(this)
+
         binding.tvRegister.setOnClickListener {
             moveToRegister()
         }
 
+        login()
+
+    }
+    private fun login() {
         binding.btnLogin.setOnClickListener {
             loginViewModel.login(
                 binding.edtEmail.text.toString().trim(),
                 binding.edtPassword.text.toString().trim()
             ).observe(this){result ->
                 when(result) {
+                    is StoryResult.Loading -> {
+                        showLoading(true)
+                    }
                     is StoryResult.Success -> {
+                        showLoading(false)
                         val response = result.data
                         saveToken(response.loginResult.token)
-                        Toast.makeText(this, "Login ${result.data.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show()
                         intent = Intent(this, MainActivity::class.java)
                         intent.putExtra(EXTRA_KEY, response.loginResult.token)
                         startActivity(intent)
                         finish()
                     }
-                    is StoryResult.Loading -> {
-                        showLoading(true)
-                    }
                     is StoryResult.Error -> {
-                        Toast.makeText(this, "Login ${result.error}" , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.login_failed) , Toast.LENGTH_SHORT).show()
                         showLoading(false)
                     }
                 }
