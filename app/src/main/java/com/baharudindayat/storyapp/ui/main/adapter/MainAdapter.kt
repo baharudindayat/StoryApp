@@ -16,13 +16,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.StoryViewHolder>() {
     private val listStory = ArrayList<Story>()
     private lateinit var onItemClickCallback: OnItemClickCallback
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(list: List<Story>) {
-        listStory.clear()
-        listStory.addAll(list)
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = StoryViewHolder(
         ListStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
@@ -52,6 +45,13 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.StoryViewHolder>() {
                 tvDescription.text = listStory.description
             }
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(list: List<Story>) {
+        listStory.clear()
+        listStory.addAll(list)
+        notifyDataSetChanged()
     }
 
     interface OnItemClickCallback{

@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         userModel = userPreferences.getUser()
         token = userModel.token.toString()
         mainAdapter = MainAdapter()
-
         rvStory = binding.rvStory
+
         getStory(token)
 
         binding.fabAddStory.setOnClickListener{
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun logout() {
         userModel.token = ""
-        userPreferences.setUser(userModel)
+        userPreferences.saveUser(userModel)
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }

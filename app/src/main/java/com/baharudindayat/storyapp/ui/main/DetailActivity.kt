@@ -1,8 +1,7 @@
 package com.baharudindayat.storyapp.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.baharudindayat.storyapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.baharudindayat.storyapp.data.remote.response.Story
 import com.baharudindayat.storyapp.databinding.ActivityDetailBinding
 import com.bumptech.glide.Glide
