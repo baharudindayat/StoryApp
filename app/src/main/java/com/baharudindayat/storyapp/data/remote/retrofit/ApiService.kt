@@ -30,11 +30,25 @@ interface ApiService {
     suspend fun uploadStories(
         @Header("Authorization") auth: String,
         @Part file: MultipartBody.Part,
-        @Part("description") description: RequestBody
+        @Part("description") description: RequestBody,
+        @Part("lat") lat: Double?,
+        @Part("lon") lon: Double?
     ): PostStoriesResponse
 
     @GET("stories")
     suspend fun getStories(
         @Header("Authorization") auth: String
     ) : GetStoriesResponse
+    @GET("stories")
+    suspend fun getStoriesPaging(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Header("Authorization") auth: String
+    ) : GetStoriesResponse
+    @GET("stories")
+    suspend fun getStoriesLocation(
+        @Query("location") loc: Int,
+        @Header("Authorization") auth: String
+    ) : GetStoriesResponse
+
 }

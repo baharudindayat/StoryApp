@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.baharudindayat.storyapp.R
 import com.baharudindayat.storyapp.data.StoryResult
 import com.baharudindayat.storyapp.data.local.preferences.User
@@ -22,14 +23,16 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var userPreferences: UserPreferences
     private var userModel: User = User()
-    private val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-    private val loginViewModel: LoginViewModel by viewModels { factory }
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         playAnimation()
 
@@ -70,14 +73,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     private fun showLoading(loading: Boolean) {
-        when(loading) {
-            true -> {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
+        binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
     private fun moveToRegister() {
         intent = Intent(this, RegisterActivity::class.java)

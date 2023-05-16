@@ -8,6 +8,7 @@ import com.baharudindayat.storyapp.di.Injection
 import com.baharudindayat.storyapp.ui.auth.viewmodel.LoginViewModel
 import com.baharudindayat.storyapp.ui.auth.viewmodel.RegisterViewModel
 import com.baharudindayat.storyapp.ui.main.viewmodel.MainViewModel
+import com.baharudindayat.storyapp.ui.maps.viewmodel.MapsViewModel
 import com.baharudindayat.storyapp.ui.story.viewmodel.StoryViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -28,6 +29,9 @@ class ViewModelFactory constructor(private val Repository: Repository) :
             modelClass.isAssignableFrom(StoryViewModel::class.java) -> {
                 StoryViewModel(Repository) as T
             }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(Repository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
@@ -35,9 +39,9 @@ class ViewModelFactory constructor(private val Repository: Repository) :
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
-        fun getInstance(context: Context): ViewModelFactory =
+        fun getInstance(Context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context))
+                instance ?: ViewModelFactory(Injection.provideRepository(Context))
             }.also { instance = it }
     }
 

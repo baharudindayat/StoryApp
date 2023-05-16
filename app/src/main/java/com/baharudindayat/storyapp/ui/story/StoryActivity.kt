@@ -31,7 +31,13 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.*
+import android.location.Location
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import okhttp3.RequestBody
 
+
+@Suppress("DEPRECATION")
 class StoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStoryBinding
     private lateinit var currentPhotoPath: String
@@ -41,12 +47,16 @@ class StoryActivity : AppCompatActivity() {
         factory
     }
     private var userModel: User = User()
+    private var location: Location? = null
     private var token: String = ""
     private var getFile: File? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         userPreferences = UserPreferences(this)
         userModel = userPreferences.getUser()
@@ -64,7 +74,14 @@ class StoryActivity : AppCompatActivity() {
             startGallery()
         }
         binding.uploadButton.setOnClickListener {
-            uploadStory()
+            uploadStoryWithLoc()
+        }
+        binding.switchShare.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                getLocation()
+            }else{
+                location = null
+            }
         }
 
     }
@@ -173,7 +190,42 @@ class StoryActivity : AppCompatActivity() {
             binding.previewImageView.setImageURI(selectedImg)
         }
     }
-    private fun uploadStory(){
+    private val requestPermissionMaps =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            when {
+                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
+                    getLocation()
+                }
+                else -> {
+                    Toast.makeText(this, "Please check your location", Toast.LENGTH_SHORT).show()
+                    binding.switchShare.isChecked = false
+                }
+            }
+        }
+    private fun getLocation(){
+        if(ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ){
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if(it != null) {
+                    location = it
+                } else {
+                    Toast.makeText(this, "Please check your location", Toast.LENGTH_SHORT).show()
+                    binding.switchShare.isChecked = false
+                }
+            }
+        } else {
+            requestPermissionMaps.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            )
+        }
+    }
+    private fun uploadStoryWithLoc() {
         if (getFile != null){
             val file = reduceFileImage(getFile as File)
             val description = binding.edDescription.text.toString()
@@ -185,40 +237,63 @@ class StoryActivity : AppCompatActivity() {
                 requestImageFile
             )
 
-            storyViewModel.uploadStory(token, descRequestBody, imageMultipart).observe(this){ result ->
-                if (result != null){
-                    when(result){
-                        is StoryResult.Loading -> {
-                            showLoading(true)
-                        }
-                        is StoryResult.Success -> {
-                            showLoading(false)
-                            Toast.makeText(this, getString(R.string.success_upload), Toast.LENGTH_SHORT).show()
-                            intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                        is StoryResult.Error -> {
-                            showLoading(false)
-                            Toast.makeText(this, getString(R.string.failed_upload), Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
+            val latitude : Double?
+            val longitude : Double?
+
+            if (location != null) {
+                latitude = location?.latitude
+                longitude = location?.longitude
+            } else {
+                latitude = 0.0
+                longitude = 0.0
             }
+
+
+            upload(token, descRequestBody, imageMultipart,latitude, longitude)
 
         }else{
             Toast.makeText(this, "Please insert image", Toast.LENGTH_SHORT).show()
         }
     }
-    private fun showLoading(loading: Boolean) {
+
+    private fun upload(auth: String, description: RequestBody, file: MultipartBody.Part, lat: Double?, lon: Double?){
+        storyViewModel.uploadStory(auth, description, file,lat,lon).observe(this){ result ->
+            if (result != null){
+                when(result){
+                    is StoryResult.Loading -> {
+                        showLoadingAndButton(true)
+                    }
+                    is StoryResult.Success -> {
+                        showLoadingAndButton(false)
+                        Toast.makeText(this, getString(R.string.success_upload), Toast.LENGTH_SHORT).show()
+                        intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    is StoryResult.Error -> {
+                        showLoadingAndButton(false)
+                        Toast.makeText(this, getString(R.string.failed_upload), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+    }
+    private fun showLoadingAndButton(loading: Boolean) {
         when(loading) {
             true -> {
                 binding.progressBar.visibility = View.VISIBLE
+                binding.uploadButton.visibility = View.GONE
             }
             false -> {
                 binding.progressBar.visibility = View.GONE
+                binding.uploadButton.visibility = View.VISIBLE
             }
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
     companion object {
         const val CAMERA_X_RESULT = 200

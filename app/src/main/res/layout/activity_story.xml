@@ -72,10 +72,10 @@
         android:id="@+id/ed_description"
         android:background="@drawable/bg_border"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="80dp"
         android:textSize="20sp"
         android:padding="8dp"
         android:hint="@string/description"
@@ -83,17 +83,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/tv_share_location"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:text="@string/share_location"
+        android:textSize="16sp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_share_location"
+        app:layout_constraintEnd_toEndOf="@id/ed_description"
+        app:layout_constraintBottom_toBottomOf="@id/tv_share_location"
+        />
+
     <Button
         android:id="@+id/uploadButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/bg_border"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_border"
         android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar

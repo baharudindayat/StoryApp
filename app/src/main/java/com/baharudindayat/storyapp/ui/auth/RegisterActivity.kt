@@ -64,14 +64,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading(loading: Boolean) {
-        when(loading) {
-            true -> {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
+        binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
 
     private fun moveToLogin() {

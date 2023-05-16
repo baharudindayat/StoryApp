@@ -24,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
         with(binding){
             tvUsername.text = story.name
             tvDescription.text = story.description
+            tvDate.text = story.createdAt
             Glide.with(this@DetailActivity)
                 .load(story.photoUrl)
                 .into(ivDetailImage)

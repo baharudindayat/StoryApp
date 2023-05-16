@@ -11,7 +11,9 @@
         android:transitionName="image"
         android:layout_width="400dp"
         android:layout_height="400dp"
+        tools:contentDescription="@string/image_story"
         android:scaleType="fitCenter"
+        android:padding="3dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
@@ -49,6 +51,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_text2"
         tools:text="Description" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
+        android:textSize="15sp"
+        android:transitionName="description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text2"
+        tools:text="Date" />
 
     <TextView
         android:id="@+id/tv_text2"

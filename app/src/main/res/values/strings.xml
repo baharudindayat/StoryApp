@@ -26,5 +26,12 @@
     <string name="upload">Upload</string>
     <string name="failed_upload">Failed to upload Story</string>
     <string name="success_upload">Successfully upload Story</string>
+    <string name="failed_take">Failed Take Photo.</string>
+    <string name="failed_camera">Failed to Show Camera.</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="retry">Try Again</string>
+    <string name="maps">maps</string>
+    <string name="mapsfailed">Maps Failed To Load</string>
+    <string name="share_location">share location</string>
 
 </resources>
