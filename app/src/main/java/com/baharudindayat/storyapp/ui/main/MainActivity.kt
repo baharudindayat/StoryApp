@@ -3,11 +3,9 @@ package com.baharudindayat.storyapp.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,7 +21,6 @@ import com.baharudindayat.storyapp.ui.main.viewmodel.MainViewModel
 import com.baharudindayat.storyapp.ui.maps.MapsActivity
 import com.baharudindayat.storyapp.ui.story.StoryActivity
 import com.baharudindayat.storyapp.utils.ViewModelFactory
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 

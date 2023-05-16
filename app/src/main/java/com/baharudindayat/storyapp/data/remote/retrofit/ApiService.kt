@@ -36,10 +36,6 @@ interface ApiService {
     ): PostStoriesResponse
 
     @GET("stories")
-    suspend fun getStories(
-        @Header("Authorization") auth: String
-    ) : GetStoriesResponse
-    @GET("stories")
     suspend fun getStoriesPaging(
         @Query("page") page: Int,
         @Query("size") size: Int,

@@ -9,10 +9,8 @@ import com.baharudindayat.storyapp.data.StoryResult
 import com.baharudindayat.storyapp.data.local.preferences.User
 import com.baharudindayat.storyapp.data.local.preferences.UserPreferences
 import com.baharudindayat.storyapp.databinding.ActivityMapsBinding
-import com.baharudindayat.storyapp.ui.main.viewmodel.MainViewModel
 import com.baharudindayat.storyapp.ui.maps.viewmodel.MapsViewModel
 import com.baharudindayat.storyapp.utils.ViewModelFactory
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -43,21 +41,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         userModel = userPreferences.getUser()
         token = userModel.token.toString()
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mapStyle()
@@ -81,7 +68,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                     .snippet(i.description)
                                     .alpha(0.8f)
                             )
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(i.lat,i.lon), 15f))
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(i.lat,i.lon), 10f))
                         }
                     }
                 }
@@ -93,16 +80,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-
-
-
-
-
-
-        // Add a marker in Sydney and move the camera
-//        val sydney = LatLng(-34.0, 151.0)
-//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
     private fun mapStyle(){
         try {

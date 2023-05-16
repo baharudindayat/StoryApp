@@ -33,5 +33,7 @@
     <string name="maps">maps</string>
     <string name="mapsfailed">Maps Failed To Load</string>
     <string name="share_location">share location</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="imagelogo">imagelogo</string>
 
 </resources>

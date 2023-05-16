@@ -1,6 +1,5 @@
 package com.baharudindayat.storyapp.ui.main.adapter
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
