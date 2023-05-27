@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">StoryApp</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="login">Masuk Disini</string>
+    <string name="name">Nama</string>
+    <string name="have_account">Punya Akun?</string>
+    <string name="having_account">Sudah Punya Akun?</string>
+    <string name="register">Daftar Disini</string>
+    <string name="warning_input">Data tidak lengkap</string>
+    <string name="success_register">Berhasil Mendaftarkan Akun</string>
+    <string name="error_register">Gagal mendaftarkan Akun</string>
+    <string name="username">username</string>
+    <string name="log_out">Keluar</string>
+    <string name="settings">Pengaturan</string>
+    <string name="login_success">Berhasil Masuk</string>
+    <string name="login_failed">Gagal Masuk</string>
+    <string name="image_story">Gambar Cerita</string>
+    <string name="addstory">Tambah Cerita</string>
+    <string name="email_format">Gunakan Format Email</string>
+    <string name="password_char">Kata sandi setidaknya 8 huruf</string>
+    <string name="description">Deskripsi</string>
+    <string name="camera_x">Camera X</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+    <string name="failed_upload">Gagal mengunggah Cerita</string>
+    <string name="success_upload">Berhasil Mengunggah Cerita</string>
+    <string name="failed_take">Gagal mengambil gambar.</string>
+    <string name="failed_camera">Gagal memunculkan kamera.</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="maps">Peta</string>
+    <string name="mapsfailed">Maps Failed To Load</string>
+    <string name="share_location">share location</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="imagelogo">imagelogo</string>
+</resources>

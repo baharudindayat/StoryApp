@@ -8,12 +8,16 @@
 
     <ImageView
         android:id="@+id/iv_detailImage"
+        android:transitionName="image"
         android:layout_width="400dp"
-        android:layout_height="220dp"
+        android:layout_height="400dp"
+        tools:contentDescription="@string/image_story"
         android:scaleType="fitCenter"
+        android:padding="3dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
+        android:background="@drawable/bg_border"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toTopOf="@+id/tv_username"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,54 +27,71 @@
 
     <TextView
         android:id="@+id/tv_text1"
+        android:transitionName="description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
         android:text="@string/username"
-        android:layout_marginStart="5dp"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_detailImage"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintVertical_bias="0.105" />
+
+    <TextView
+        android:id="@+id/tv_Description"
+        android:transitionName="description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text2"
+        tools:text="Description" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
+        android:textSize="15sp"
+        android:transitionName="description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_text2"
+        tools:text="Date" />
+
+    <TextView
+        android:id="@+id/tv_text2"
+        android:transitionName="username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/description"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username"
+        tools:text="Description" />
 
     <TextView
         android:id="@+id/tv_username"
+        android:transitionName="username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_text1"
         app:layout_constraintVertical_bias="0.0"
         tools:text="@string/username" />
-
-    <TextView
-        android:id="@+id/tv_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="28dp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username"
-        tools:text="Description" />
-
-    <TextView
-        android:id="@+id/tv_Description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_text2"
-        tools:text="Description" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

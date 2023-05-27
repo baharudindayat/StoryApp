@@ -27,6 +27,7 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
         userPreferences = UserPreferences(this)
         userModel = userPreferences.getUser()
 

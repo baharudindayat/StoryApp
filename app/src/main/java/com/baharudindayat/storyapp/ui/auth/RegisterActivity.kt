@@ -1,5 +1,7 @@
 package com.baharudindayat.storyapp.ui.auth
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -24,13 +26,14 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        playAnimation()
+
 
         binding.tvLoginHere.setOnClickListener {
             moveToLogin()
         }
 
         register()
-
 
     }
 
@@ -61,18 +64,34 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showLoading(loading: Boolean) {
-        when(loading) {
-            true -> {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            false -> {
-                binding.progressBar.visibility = View.GONE
-            }
-        }
+        binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
 
     private fun moveToLogin() {
         intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+    }
+    private fun playAnimation(){
+        ObjectAnimator.ofFloat(binding.imgLogin, View.TRANSLATION_X, -30f, 30f).apply {
+            duration = DURATION.toLong()
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
+        val registerTitle = ObjectAnimator.ofFloat(binding.tvRegister,View.ALPHA,1f).setDuration(DURATION2.toLong())
+        val registerEmail = ObjectAnimator.ofFloat(binding.edtEmail,View.ALPHA,1f).setDuration(DURATION2.toLong())
+        val registerPassword = ObjectAnimator.ofFloat(binding.edtPassword,View.ALPHA,1f).setDuration(DURATION2.toLong())
+        val registerName = ObjectAnimator.ofFloat(binding.edtName,View.ALPHA,1f).setDuration(DURATION2.toLong())
+        val registerButton = ObjectAnimator.ofFloat(binding.btnRegister,View.ALPHA,1f).setDuration(DURATION2.toLong())
+
+        AnimatorSet().apply {
+            playSequentially(registerTitle,registerEmail,registerPassword,registerName,registerButton)
+            startDelay = DURATION2.toLong()
+            start()
+        }
+    }
+    companion object{
+        const val DURATION = 4000
+        const val DURATION2 = 400
     }
 }

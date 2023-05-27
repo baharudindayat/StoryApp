@@ -7,6 +7,6 @@ import okhttp3.RequestBody
 
 
 class StoryViewModel constructor(private val repository: Repository): ViewModel(){
-    fun uploadStory(auth: String, description: RequestBody, file: MultipartBody.Part) =
-        repository.uploadStory(auth, description, file)
+    fun uploadStory(auth: String, description: RequestBody, file: MultipartBody.Part, lat: Double?, lon: Double?) =
+        repository.uploadStory(auth, description, file,lat,lon)
 }
